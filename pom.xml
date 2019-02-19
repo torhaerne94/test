@@ -57,6 +57,12 @@
 			<version>${bootstrap.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-client</artifactId>
+			<version>3.0.15</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

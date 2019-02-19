@@ -1,34 +1,42 @@
 package com.tomek.zadanie.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.tomek.zadanie.pojo.Post;
+import com.tomek.zadanie.service.GetRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class AppController {
 
+    @Autowired
+    @SuppressWarnings("unused")
+    private GetRequest getRequest;
+
+    @GetMapping("/{id}")
+    @SuppressWarnings("unused")
+    public String getPost(@PathVariable(name="id", required=false) String id, Model model) {
+        Post post = getRequest.method("https://jsonplaceholder.typicode.com/posts/"+id);
+        model.addAttribute("userId", post.getUserId());
+        model.addAttribute("id", post.getId());
+        model.addAttribute("title", post.getTitle());
+        model.addAttribute("body", post.getBody());
+
+        return "index"; //view
+    }
+
     @GetMapping("/")
-    public String main(Model model) {
-        model.addAttribute("message", message);
-        model.addAttribute("tasks", tasks);
+    @SuppressWarnings("unused")
+    public String getDefaultPost(Model model) {
+        Post post = getRequest.method("https://jsonplaceholder.typicode.com/posts/1");
+        model.addAttribute("userId", post.getUserId());
+        model.addAttribute("id", post.getId());
+        model.addAttribute("title", post.getTitle());
+        model.addAttribute("body", post.getBody());
 
-        return "welcome"; //view
+        return "index"; //view
     }
-
-    // /hello?name=kotlin
-    @GetMapping("/hello")
-    public String mainWithParam(
-            @RequestParam(name = "name", required = false, defaultValue = "")
-                    String name, Model model) {
-
-        model.addAttribute("message", name);
-
-        return "welcome"; //view
-    }
-
 }
