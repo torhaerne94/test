@@ -1,4 +1,4 @@
-package com.tomek.zadanie.pojo;
+package com.tomek.zadanie.dto;
 
 public class Post {
 
