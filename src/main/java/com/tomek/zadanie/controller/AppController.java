@@ -19,11 +19,15 @@ public class AppController {
     @GetMapping("/{id}")
     @SuppressWarnings("unused")
     public String getPost(@PathVariable(name="id", required=false) String id, Model model) {
-        Post post = getRequest.method("https://jsonplaceholder.typicode.com/posts/"+id);
-        model.addAttribute("userId", post.getUserId());
-        model.addAttribute("id", post.getId());
-        model.addAttribute("title", post.getTitle());
-        model.addAttribute("body", post.getBody());
+        try {
+            Post post = getRequest.getPost("https://jsonplaceholder.typicode.com/posts/"+id);
+            model.addAttribute("userId", post.getUserId());
+            model.addAttribute("id", post.getId());
+            model.addAttribute("title", post.getTitle());
+            model.addAttribute("body", post.getBody());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         return "index"; //view
     }
@@ -31,12 +35,15 @@ public class AppController {
     @GetMapping("/")
     @SuppressWarnings("unused")
     public String getDefaultPost(Model model) {
-        Post post = getRequest.method("https://jsonplaceholder.typicode.com/posts/1");
-        model.addAttribute("userId", post.getUserId());
-        model.addAttribute("id", post.getId());
-        model.addAttribute("title", post.getTitle());
-        model.addAttribute("body", post.getBody());
-
+        try {
+            Post post = getRequest.getPost("https://jsonplaceholder.typicode.com/posts/1");
+            model.addAttribute("userId", post.getUserId());
+            model.addAttribute("id", post.getId());
+            model.addAttribute("title", post.getTitle());
+            model.addAttribute("body", post.getBody());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "index"; //view
     }
 }
