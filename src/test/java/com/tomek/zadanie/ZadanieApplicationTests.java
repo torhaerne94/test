@@ -13,6 +13,4 @@ public class ZadanieApplicationTests {
 	public void contextLoads() {
 	}
 
-	@Test
-
 }
